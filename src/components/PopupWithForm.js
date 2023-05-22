@@ -1,5 +1,5 @@
 import React from 'react';
-
+import iconCross from '../images/popup__button-close.svg';
 function PopupWithForm(props) {
   return (
     <div
@@ -8,6 +8,7 @@ function PopupWithForm(props) {
     >
       <div className="popup__container">
         <button
+          style={{ backgroundImage: `url(${iconCross})` }}
           onClick={props.onClose}
           className="popup__button-close"
           type="button"

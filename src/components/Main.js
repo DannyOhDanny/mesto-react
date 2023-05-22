@@ -10,19 +10,6 @@ function Main(props) {
 
   React.useEffect(() => {
     api
-      .getCardsFromServer()
-      .then(cardsData => {
-        setCards(cardsData);
-      })
-      .catch(err => {
-        console.error(`Возникла ошибка загрузки данных с сервера:${err} - ${err.statusText}`);
-      });
-  }, []);
-
-  console.log(cards);
-
-  React.useEffect(() => {
-    api
       .getProfileInfoFromServer()
       .then(data => {
         setUserName(data.name);
@@ -33,6 +20,17 @@ function Main(props) {
         console.error(`Возникла ошибка загрузки данных с сервера:${err} - ${err.statusText}`);
       });
   }, [userName, userDescription, userAvatar]);
+
+  React.useEffect(() => {
+    api
+      .getCardsFromServer()
+      .then(cardsData => {
+        setCards(cardsData);
+      })
+      .catch(err => {
+        console.error(`Возникла ошибка загрузки данных с сервера:${err} - ${err.statusText}`);
+      });
+  }, []);
 
   return (
     <main className="content">
