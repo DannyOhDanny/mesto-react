@@ -28,7 +28,7 @@ function App() {
   }
 
   return (
-    <body className="root">
+    <div className="root">
       <div className="page">
         <Header />
         <Main
@@ -117,11 +117,17 @@ function App() {
             id="avatar-input"
             pattern="^(http(s)?:\/\/)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$"
           />
-          <span class="popup__error avatar-input-error"></span>
+          <span className="popup__error avatar-input-error"></span>
+        </PopupWithForm>
+        <PopupWithForm title="Вы уверены?" name={'delete-popup'} id={'delete-popup'}>
+          {' '}
+          <button className="popup__button" type="submit" aria-label="Confirm">
+            Да
+          </button>
         </PopupWithForm>
         <ImagePopup />
       </div>
-    </body>
+    </div>
   );
 }
 
