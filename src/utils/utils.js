@@ -1,13 +1,3 @@
-//Объект - конфигуратор со свойствами селекторов и классов
-const settings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-};
-
 //Константы
 const elementsContainer = document.querySelector('.elements');
 const profileButtonEdit = document.querySelector('.profile__button-edit');
@@ -24,7 +14,6 @@ const urlInput = document.querySelector('.popup__input_type_url');
 const cardSection = '.elements';
 
 export {
-  settings,
   elementsContainer,
   profileButtonAdd,
   profileButtonEdit,

@@ -1,14 +1,15 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import api from '../utils/api';
 import Card from './Card';
 
 function Main(props) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState('');
+  const [cards, setCards] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api
       .getProfileInfoFromServer()
       .then(data => {
@@ -21,7 +22,7 @@ function Main(props) {
       });
   }, [userName, userDescription, userAvatar]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api
       .getCardsFromServer()
       .then(cardsData => {

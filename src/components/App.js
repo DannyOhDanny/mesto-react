@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -6,10 +7,10 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState('');
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState('');
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -47,8 +48,8 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           title="Редактировать профиль"
-          name={'edit-popup'}
           id={'edit-popup'}
+          btnName={'Сохранить'}
         >
           <input
             name="name"
@@ -81,8 +82,8 @@ function App() {
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           title="Новое место"
-          name={'add-popup'}
           id={'add-popup'}
+          btnName={'Создать'}
         >
           <input
             name="picname"
@@ -111,8 +112,8 @@ function App() {
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           title="Обновить аватар"
-          name={'avatar-popup'}
           id={'avatar-popup'}
+          btnName={'Сохранить'}
         >
           <input
             name="avatarlink"
@@ -125,7 +126,7 @@ function App() {
           />
           <span className="popup__error avatar-input-error"></span>
         </PopupWithForm>
-        <PopupWithForm title="Вы уверены?" name={'delete-popup'} id={'delete-popup'}>
+        <PopupWithForm title="Вы уверены?" id={'delete-popup'}>
           {' '}
           <button className="popup__button" type="submit" aria-label="Confirm">
             Да

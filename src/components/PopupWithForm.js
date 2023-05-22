@@ -1,14 +1,11 @@
 import React from 'react';
-import iconCross from '../images/popup__button-close.svg';
+import iconClose from '../images/popup__button-close.svg';
 function PopupWithForm(props) {
   return (
-    <div
-      className={`popup popup_type_${props.name} ${props.isOpen ? 'popup_opened' : ''}`}
-      id={props.id}
-    >
+    <div className={`popup ${props.isOpen ? 'popup_opened' : ''}`} id={props.id}>
       <div className="popup__container">
         <button
-          style={{ backgroundImage: `url(${iconCross})` }}
+          style={{ backgroundImage: `url(${iconClose})` }}
           onClick={props.onClose}
           className="popup__button-close"
           type="button"
@@ -18,7 +15,7 @@ function PopupWithForm(props) {
           <h2 className="popup__input-title">{props.title}</h2>
           {props.children}
           <button className="popup__button" type="submit" aria-label="Save">
-            Сохранить
+            {props.btnName}
           </button>
         </form>
       </div>

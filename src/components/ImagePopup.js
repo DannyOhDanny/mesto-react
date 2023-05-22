@@ -1,12 +1,12 @@
 import React from 'react';
-import iconCross from '../images/popup__button-close.svg';
+import iconClose from '../images/popup__button-close.svg';
 
 function ImagePopup(props) {
   return (
     <div className={`popup popup_image_zoom ${props.card ? 'popup_opened' : ''}`} id="image-popup">
       <div className="popup__img-container">
         <button
-          style={{ backgroundImage: `url(${iconCross})` }}
+          style={{ backgroundImage: `url(${iconClose})` }}
           onClick={props.onClose}
           className="popup__button-close"
           type="button"

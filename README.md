@@ -15,16 +15,19 @@ https://dannyohdanny.github.io/mesto-react/
 
 **Инструменты разработчика:**
 
+<div>
 <img src="https://img.shields.io/badge/React-green?style=flat&logo=react&logoColor=blue" alt="React Badge"/>
 <img src="https://img.shields.io/badge/Node.js-green?style=flat&logo=node.js&logoColor=blue" alt="Node Badge"/>
 <img src="https://img.shields.io/badge/GIT-green?style=flat&logo=git&logoColor=blue" alt="GIT Badge"/>
 <img src="https://img.shields.io/badge/GitHubpages-green?style=flat&logo=githubpages&logoColor=blue" alt="GIT Badge"/>
 <img src="https://img.shields.io/badge/API-green?style=flat&logo=api&logoColor=blue" alt="API Badge"/>
-
+</div>
 **Системные требования:**
 
 Функционал одностраничного веб-инфтерфейса можно протестировать с помощью любого доступного браузера перейдя по ссылке в описании :arrow_up: .
 
+<div>
 <img src="https://img.shields.io/badge/MacOs-green?style=flat&logo=macos&logoColor=blue" alt="MacOs Badge"/> 
 <img src="https://img.shields.io/badge/Windows-green?style=flat&logo=Windows&logoColor=blue" alt="Windows Badge"/>
 <img src="https://img.shields.io/badge/Linux-green?style=flat&logo=Linux&logoColor=blue" alt="Windows Badge"/>
+</div>
