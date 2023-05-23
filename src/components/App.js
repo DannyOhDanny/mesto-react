@@ -10,7 +10,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState('');
+  const [selectedCard, setSelectedCard] = useState({});
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -27,8 +27,9 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard('');
+    setSelectedCard({});
   }
+
   function handleCardClick(card) {
     setSelectedCard(card);
   }
@@ -126,12 +127,7 @@ function App() {
           />
           <span className="popup__error avatar-input-error"></span>
         </PopupWithForm>
-        <PopupWithForm title="Вы уверены?" id={'delete-popup'}>
-          {' '}
-          <button className="popup__button" type="submit" aria-label="Confirm">
-            Да
-          </button>
-        </PopupWithForm>
+        <PopupWithForm title="Вы уверены?" id={'delete-popup'} btnName={'Да'}></PopupWithForm>
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </div>
     </div>

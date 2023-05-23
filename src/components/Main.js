@@ -65,17 +65,6 @@ function Main(props) {
           <Card key={card._id} card={card} onCardClick={props.onCardClick} />
         ))}
       </section>
-      <div className="popup" id="delete-popup">
-        <div className="popup__container">
-          <button className="popup__button-close" type="button" aria-label="Close"></button>
-          <form className="popup__form" id="delete-form" name="delete-form" noValidate>
-            <h2 className="popup__input-title">Вы уверены?</h2>
-            <button className="popup__button" type="submit" aria-label="Confirm">
-              Да
-            </button>
-          </form>
-        </div>
-      </div>
     </main>
   );
 }

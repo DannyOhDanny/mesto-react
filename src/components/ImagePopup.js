@@ -3,7 +3,10 @@ import iconClose from '../images/popup__button-close.svg';
 
 function ImagePopup(props) {
   return (
-    <div className={`popup popup_image_zoom ${props.card ? 'popup_opened' : ''}`} id="image-popup">
+    <div
+      className={`popup popup_image_zoom ${props.card.link ? 'popup_opened' : ''}`}
+      id="image-popup"
+    >
       <div className="popup__img-container">
         <button
           style={{ backgroundImage: `url(${iconClose})` }}
