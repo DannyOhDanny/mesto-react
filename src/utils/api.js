@@ -12,7 +12,7 @@ class Api {
     }
   }
 
-  getProfileInfoFromServer() {
+  getUserInfo() {
     return fetch(`${this._url}users/me`, {
       method: 'GET',
       headers: this._headers

@@ -1,6 +1,6 @@
 .element__heart {
   padding: 0;
-  background-image: url(../../../images/element_heart.svg);
+  background-image: url('/src/images/element_heart.svg');
   background-repeat: no-repeat;
   margin: 0;
   max-width: 22px;
