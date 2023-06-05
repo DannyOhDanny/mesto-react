@@ -7,6 +7,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import EditProfilePopup from './EditProfilePopup';
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -30,7 +31,9 @@ function App() {
         });
       })
       .catch(err => {
-        console.error(`Возникла ошибка загрузки данных с сервера:${err} - ${err.statusText}`);
+        console.error(
+          `Возникла ошибка загрузки данных пользователя с сервера:${err} - ${err.statusText}`
+        );
       });
   }, []);
 
@@ -38,15 +41,14 @@ function App() {
     api
       .getCardsFromServer()
       .then(cardsData => {
-        //console.log(cardsData);
         setCards(cardsData);
       })
       .catch(err => {
-        console.error(`Возникла ошибка загрузки данных с сервера:${err} - ${err.statusText}`);
+        console.error(
+          `Возникла ошибка загрузки данных карточек с сервера:${err} - ${err.statusText}`
+        );
       });
   }, [cards]);
-
-  //console.log(currentUser);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -73,38 +75,48 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some(item => item._id === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    if (!isLiked) {
-      api
-        .putUserLike(card._id, !isLiked)
-        .then(newCard => {
-          setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
-        })
-        .catch(err => {
-          console.error(`Возникла ошибка постановки лайка:${err} - ${err.statusText}`);
-        });
-    } else {
-      api
-        .deleteUserLike(card._id, !isLiked)
-        .then(newCard => {
-          setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
-        })
-        .catch(err => {
-          console.error(`Возникла ошибка удаления лайка:${err} - ${err.statusText}`);
-        });
-    }
+    !isLiked
+      ? api
+          .putUserLike(card._id)
+          .then(newCard => {
+            setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
+          })
+          .catch(err => {
+            console.error(`Возникла ошибка постановки лайка:${err} - ${err.statusText}`);
+          })
+      : api
+          .deleteUserLike(card._id)
+          .then(newCard => {
+            setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
+          })
+          .catch(err => {
+            console.error(`Возникла ошибка удаления лайка:${err} - ${err.statusText}`);
+          });
   }
 
   function handleCardDelete(card) {
     api
       .deleteUserCard(card._id)
       .then(newCard => {
-        //удаляем из массива карточку и сохраняем  новый массив
+        //удаляем из старого массива карточку и сохраняем новый массив
         const newCards = cards.filter(c => (c._id === card._id ? null : newCard));
         //отрисовываем новый массив
         setCards(newCards);
       })
       .catch(err => {
         console.error(`Возникла ошибка удаления карточки:${err} - ${err.statusText}`);
+      });
+  }
+
+  function handleUpdateUser({ name, about }) {
+    api
+      .setUserInfo({ name, about })
+      .then(newData => {
+        setCurrentUser(newData);
+        closeAllPopups();
+      })
+      .catch(err => {
+        console.error(`Возникла ошибка редактиррования профиля:${err} - ${err.statusText}`);
       });
   }
 
@@ -123,40 +135,11 @@ function App() {
             onCardDelete={handleCardDelete}
           />
           <Footer />
-          <PopupWithForm
+          <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-            title="Редактировать профиль"
-            id={'edit-popup'}
-            btnName={'Сохранить'}
-          >
-            <input
-              name="name"
-              placeholder="Имя"
-              type="text"
-              className="popup__input popup__input_type_name"
-              value=""
-              minLength="2"
-              maxLength="40"
-              required
-              id="name-input"
-              pattern="^[а-яА-ЯёЁa-zA-Z0-9-;._\s]+$"
-            />
-            <span className="popup__error name-input-error"></span>
-            <input
-              name="position"
-              placeholder="О себе"
-              type="text"
-              className="popup__input popup__input_type_position"
-              value=""
-              minLength="2"
-              maxLength="200"
-              required
-              id="position-input"
-              pattern="^[а-яА-ЯёЁa-zA-Z0-9-;._\s]+$"
-            />
-            <span className="popup__error position-input-error"></span>
-          </PopupWithForm>
+            onUpdateUser={handleUpdateUser}
+          ></EditProfilePopup>
           <PopupWithForm
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
