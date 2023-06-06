@@ -79,23 +79,14 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some(item => item._id === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    !isLiked
-      ? api
-          .putUserLike(card._id)
-          .then(newCard => {
-            setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
-          })
-          .catch(err => {
-            console.error(`Возникла ошибка постановки лайка:${err} - ${err.statusText}`);
-          })
-      : api
-          .deleteUserLike(card._id)
-          .then(newCard => {
-            setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
-          })
-          .catch(err => {
-            console.error(`Возникла ошибка удаления лайка:${err} - ${err.statusText}`);
-          });
+
+    (!isLiked ? api.putUserLike(card._id) : api.deleteUserLike(card._id))
+      .then(newCard => {
+        setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
+      })
+      .catch(err => {
+        console.error(`Возникла ошибка удаления лайка:${err} - ${err.statusText}`);
+      });
   }
 
   function handleCardDelete(card) {
@@ -105,7 +96,8 @@ function App() {
         //удаляем из старого массива карточку и сохраняем новый массив
         const newCards = cards.filter(c => (c._id === card._id ? null : newCard));
         //отрисовываем новый массив
-        setCards(newCards);
+        //setCards(newCards);
+        setCards(cards => cards.filter(c => c._id !== card._id));
       })
       .catch(err => {
         console.error(`Возникла ошибка удаления карточки:${err} - ${err.statusText}`);
