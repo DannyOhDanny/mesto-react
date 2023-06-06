@@ -1,21 +1,25 @@
 import React from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useEffect, useState } from 'react';
+import api from '../utils/api.js';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
-import api from '../utils/api.js';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 
 function App() {
   const [cards, setCards] = useState([]);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     api
@@ -109,14 +113,42 @@ function App() {
   }
 
   function handleUpdateUser({ name, about }) {
+    setIsLoading(true);
     api
       .setUserInfo({ name, about })
       .then(newData => {
         setCurrentUser(newData);
         closeAllPopups();
+        setIsLoading(false);
       })
       .catch(err => {
-        console.error(`Возникла ошибка редактиррования профиля:${err} - ${err.statusText}`);
+        console.error(`Возникла ошибка редактирования профиля:${err} - ${err.statusText}`);
+      });
+  }
+
+  function handleUpdateAvatar({ avatar }) {
+    api
+      .setUserAvatar({ avatar })
+      .then(newUrl => {
+        setCurrentUser(newUrl);
+        closeAllPopups();
+      })
+      .catch(err => {
+        console.error(`Возникла ошибка редактирования аватара:${err} - ${err.statusText}`);
+      });
+  }
+
+  function handleAddPlaceSubmit({ name, link }) {
+    setIsLoading(true);
+    api
+      .setNewCard({ name, link })
+      .then(newCard => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.error(`Возникла ошибка добавления карточки:${err} - ${err.statusText}`);
       });
   }
 
@@ -139,56 +171,26 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+            isLoading={isLoading}
           ></EditProfilePopup>
-          <PopupWithForm
-            isOpen={isAddPlacePopupOpen}
-            onClose={closeAllPopups}
-            title="Новое место"
-            id={'add-popup'}
-            btnName={'Создать'}
-          >
-            <input
-              name="picname"
-              placeholder="Название"
-              type="text"
-              className="popup__input popup__input_type_heading"
-              required
-              minLength="2"
-              maxLength="30"
-              id="place-input"
-              pattern="^[а-яА-ЯёЁa-zA-Z0-9-;._\s]+$"
-            />
-            <span className="popup__error place-input-error"></span>
-            <input
-              name="url"
-              placeholder="Ссылка на картинку"
-              type="url"
-              className="popup__input popup__input_type_url"
-              required
-              id="url-input"
-              pattern="^(http(s)?:\/\/)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$"
-            />
-            <span className="popup__error url-input-error"></span>
-          </PopupWithForm>
-          <PopupWithForm
+
+          <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
-            title="Обновить аватар"
-            id={'avatar-popup'}
-            btnName={'Сохранить'}
-          >
-            <input
-              name="avatarlink"
-              placeholder="Ссылка на аватар"
-              type="url"
-              className="popup__input popup__input_type_url"
-              required
-              id="avatar-input"
-              pattern="^(http(s)?:\/\/)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$"
-            />
-            <span className="popup__error avatar-input-error"></span>
-          </PopupWithForm>
-          <PopupWithForm title="Вы уверены?" id={'delete-popup'} btnName={'Да'}></PopupWithForm>
+            onUpdateAvatar={handleUpdateAvatar}
+          />
+          <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            onAddPlace={handleAddPlaceSubmit}
+            isLoading={isLoading}
+          ></AddPlacePopup>
+          <PopupWithForm
+            onClose={closeAllPopups}
+            title="Вы уверены?"
+            id={'delete-popup'}
+            btnName={'Да'}
+          ></PopupWithForm>
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         </div>
       </div>

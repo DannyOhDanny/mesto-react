@@ -39,6 +39,7 @@ function EditProfilePopup(props) {
       id={'edit-popup'}
       btnName={'Сохранить'}
       onSubmit={handleSubmit}
+      isLoading={props.isLoading}
     >
       <input
         name="name"

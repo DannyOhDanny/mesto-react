@@ -39,24 +39,23 @@ class Api {
     });
   }
 
-  editAvatarPic(avatarUrlObj) {
+  setUserAvatar({ avatar }) {
     return fetch(`${this._url}users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        //получаем объект данных с свойством .avatarlink
-        avatar: avatarUrlObj.avatarlink
+        avatar
       })
     }).then(res => {
       return this._handleServerResponse(res);
     });
   }
 
-  setNewCard(cardData) {
+  setNewCard({ name, link }) {
     return fetch(`${this._url}cards`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({ name: cardData.picname, link: cardData.url })
+      body: JSON.stringify({ name, link })
     }).then(res => {
       return this._handleServerResponse(res);
     });

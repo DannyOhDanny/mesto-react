@@ -1,5 +1,6 @@
 import React from 'react';
 import iconClose from '../images/popup__button-close.svg';
+
 function PopupWithForm(props) {
   return (
     <div className={`popup ${props.isOpen ? 'popup_opened' : ''}`} id={props.id}>
@@ -21,7 +22,7 @@ function PopupWithForm(props) {
           <h2 className="popup__input-title">{props.title}</h2>
           {props.children}
           <button className="popup__button" type="submit" aria-label="Save">
-            {props.btnName}
+            {props.isLoading ? 'Сохранение...' : props.btnName}
           </button>
         </form>
       </div>
