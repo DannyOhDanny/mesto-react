@@ -52,7 +52,7 @@ function App() {
           `Возникла ошибка загрузки данных карточек с сервера:${err} - ${err.statusText}`
         );
       });
-  }, [cards]);
+  }, []);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -119,11 +119,11 @@ function App() {
       .then(newData => {
         setCurrentUser(newData);
         closeAllPopups();
-        setIsLoading(false);
       })
       .catch(err => {
         console.error(`Возникла ошибка редактирования профиля:${err} - ${err.statusText}`);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleUpdateAvatar({ avatar }) {
@@ -145,11 +145,11 @@ function App() {
       .then(newCard => {
         setCards([newCard, ...cards]);
         closeAllPopups();
-        setIsLoading(false);
       })
       .catch(err => {
         console.error(`Возникла ошибка добавления карточки:${err} - ${err.statusText}`);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   return (
@@ -191,6 +191,7 @@ function App() {
             id={'delete-popup'}
             btnName={'Да'}
           ></PopupWithForm>
+
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         </div>
       </div>

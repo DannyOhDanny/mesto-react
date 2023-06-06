@@ -21,7 +21,12 @@ function PopupWithForm(props) {
         >
           <h2 className="popup__input-title">{props.title}</h2>
           {props.children}
-          <button className="popup__button" type="submit" aria-label="Save">
+          <button
+            disabled={props.isLoading}
+            className="popup__button"
+            type="submit"
+            aria-label="Save"
+          >
             {props.isLoading ? 'Сохранение...' : props.btnName}
           </button>
         </form>
