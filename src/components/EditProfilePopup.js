@@ -46,7 +46,7 @@ function EditProfilePopup(props) {
         placeholder="Имя"
         type="text"
         className="popup__input popup__input_type_name"
-        value={name}
+        value={name || ''}
         minLength="2"
         maxLength="40"
         required
@@ -60,7 +60,7 @@ function EditProfilePopup(props) {
         placeholder="О себе"
         type="text"
         className="popup__input popup__input_type_position"
-        value={description}
+        value={description || ''}
         minLength="2"
         maxLength="200"
         required

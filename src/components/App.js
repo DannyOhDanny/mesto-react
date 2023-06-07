@@ -85,7 +85,7 @@ function App() {
         setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
       })
       .catch(err => {
-        console.error(`Возникла ошибка удаления лайка:${err} - ${err.statusText}`);
+        console.error(`Возникла ошибка при постановке лайка:${err} - ${err.statusText}`);
       });
   }
 
@@ -119,6 +119,7 @@ function App() {
   }
 
   function handleUpdateAvatar({ avatar }) {
+    setIsLoading(true);
     api
       .setUserAvatar({ avatar })
       .then(newUrl => {
@@ -127,7 +128,8 @@ function App() {
       })
       .catch(err => {
         console.error(`Возникла ошибка редактирования аватара:${err} - ${err.statusText}`);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleAddPlaceSubmit({ name, link }) {
@@ -170,6 +172,7 @@ function App() {
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
+            isLoading={isLoading}
           />
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}

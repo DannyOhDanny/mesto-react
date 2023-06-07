@@ -20,6 +20,7 @@ function EditAvatarPopup(props) {
       id={'avatar-popup'}
       btnName={'Сохранить'}
       onSubmit={handleSubmit}
+      isLoading={props.isLoading}
     >
       <input
         ref={avatarRef}

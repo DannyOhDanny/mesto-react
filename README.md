@@ -22,6 +22,7 @@ https://dannyohdanny.github.io/mesto-react/
 <img src="https://img.shields.io/badge/GitHubpages-green?style=flat&logo=githubpages&logoColor=blue" alt="GIT Badge"/>
 <img src="https://img.shields.io/badge/API-green?style=flat&logo=api&logoColor=blue" alt="API Badge"/>
 </div>
+
 **Системные требования:**
 
 Функционал одностраничного веб-инфтерфейса можно протестировать с помощью любого доступного браузера перейдя по ссылке в описании :arrow_up: .
