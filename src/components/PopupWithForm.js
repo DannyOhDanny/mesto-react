@@ -1,9 +1,31 @@
 import React from 'react';
 import iconClose from '../images/popup__button-close.svg';
+import { useEffect } from 'react';
 
 function PopupWithForm(props) {
+  //function handleClickonOverlay() {
+  //props.onClose();
+  //}
+
+  useEffect(() => {
+    function handleEscapeKey(event: KeyboardEvent) {
+      if (event.code === 'Escape') {
+        props.onClose();
+      }
+    }
+
+    document.addEventListener('keydown', handleEscapeKey);
+    return () => document.removeEventListener('keydown', handleEscapeKey);
+  }, []);
+
   return (
-    <div className={`popup ${props.isOpen ? 'popup_opened' : ''}`} id={props.id}>
+    <div
+      onClick={() => {
+        props.onClose();
+      }}
+      className={`popup ${props.isOpen ? 'popup_opened' : ''}`}
+      id={props.id}
+    >
       <div className="popup__container">
         <button
           style={{ backgroundImage: `url(${iconClose})` }}
