@@ -3,10 +3,6 @@ import iconClose from '../images/popup__button-close.svg';
 import { useEffect } from 'react';
 
 function PopupWithForm(props) {
-  //function handleClickonOverlay() {
-  //props.onClose();
-  //}
-
   useEffect(() => {
     function handleEscapeKey(event: KeyboardEvent) {
       if (event.code === 'Escape') {
@@ -18,15 +14,19 @@ function PopupWithForm(props) {
     return () => document.removeEventListener('keydown', handleEscapeKey);
   }, []);
 
+  function handleClickonOverlay(e) {
+    props.onClose();
+  }
+
   return (
     <div
-      onClick={() => {
-        props.onClose();
-      }}
       className={`popup ${props.isOpen ? 'popup_opened' : ''}`}
       id={props.id}
+      onClick={e => {
+        handleClickonOverlay(e);
+      }}
     >
-      <div className="popup__container">
+      <div className="popup__container" onClick={event => event.stopPropagation()}>
         <button
           style={{ backgroundImage: `url(${iconClose})` }}
           onClick={props.onClose}
