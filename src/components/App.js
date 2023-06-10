@@ -10,6 +10,7 @@ import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import DeleteConfirmationPopup from './DeleteConfirmationPopup';
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -17,6 +18,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
+  const [deletedCard, setDeletedCard] = React.useState(null);
 
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
@@ -92,8 +94,7 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    setDeletePopupOpen(card._id ? true : false);
-
+    setIsLoading(true);
     api
       .deleteUserCard(card._id)
       .then(newCard => {
@@ -105,7 +106,8 @@ function App() {
       })
       .catch(err => {
         console.error(`Возникла ошибка удаления карточки:${err} - ${err.statusText}`);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleUpdateUser({ name, about }) {
@@ -150,6 +152,11 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
+  function handleTrashBtnClick(card) {
+    setDeletePopupOpen(true);
+    setDeletedCard(card);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -162,7 +169,7 @@ function App() {
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
             cards={cards}
-            onCardDelete={handleCardDelete}
+            onTrashBtnClick={handleTrashBtnClick}
           />
           <Footer />
           <EditProfilePopup
@@ -184,13 +191,13 @@ function App() {
             onAddPlace={handleAddPlaceSubmit}
             isLoading={isLoading}
           ></AddPlacePopup>
-          <PopupWithForm
+          <DeleteConfirmationPopup
             isOpen={isDeletePopupOpen}
             onClose={closeAllPopups}
-            title="Вы уверены?"
-            id={'delete-popup'}
-            btnName={'Да'}
-          ></PopupWithForm>
+            onDeleteCard={handleCardDelete}
+            card={deletedCard}
+            isLoading={isLoading}
+          ></DeleteConfirmationPopup>
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         </div>
       </div>

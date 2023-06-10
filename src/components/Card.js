@@ -34,7 +34,7 @@ function Card(props) {
           className="element__delete-btn"
           aria-label="Delete"
           type="button"
-          onClick={handleCardDelete}
+          onClick={() => props.onTrashBtnClick(props.card)}
         ></button>
       )}
       <div className="element__title-area">
