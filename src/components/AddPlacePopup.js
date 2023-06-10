@@ -45,7 +45,6 @@ function AddPlacePopup(props) {
         id="place-input"
         pattern="^[а-яА-ЯёЁa-zA-Z0-9-;._\s]+$"
         onChange={handleNameChange}
-        value=""
       />
       <span className="popup__error place-input-error"></span>
       <input
@@ -57,7 +56,6 @@ function AddPlacePopup(props) {
         id="url-input"
         pattern="^(http(s)?:\/\/)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$"
         onChange={handleLinkChange}
-        value=""
       />
       <span className="popup__error url-input-error"></span>
     </PopupWithForm>

@@ -6,8 +6,9 @@ function ImagePopup(props) {
     <div
       className={`popup popup_image_zoom ${props.card.link ? 'popup_opened' : ''}`}
       id="image-popup"
+      onClick={props.onClose}
     >
-      <div className="popup__img-container">
+      <div className="popup__img-container" onClick={event => event.stopPropagation()}>
         <button
           style={{ backgroundImage: `url(${iconClose})` }}
           onClick={props.onClose}
