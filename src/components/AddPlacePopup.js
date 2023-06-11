@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup(props) {
@@ -22,6 +22,7 @@ function AddPlacePopup(props) {
       name,
       link
     });
+    e.target.reset();
   }
 
   return (

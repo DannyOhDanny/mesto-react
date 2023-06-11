@@ -5,7 +5,6 @@ import api from '../utils/api.js';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -200,7 +199,7 @@ function App() {
             card={deletedCard}
             isLoading={isLoading}
           ></DeleteConfirmationPopup>
-          <ImagePopup isOpen={isDeletePopupOpen} onClose={closeAllPopups} card={selectedCard} />
+          <ImagePopup isOpen={isImagePopupOpen} onClose={closeAllPopups} card={selectedCard} />
         </div>
       </div>
     </CurrentUserContext.Provider>
