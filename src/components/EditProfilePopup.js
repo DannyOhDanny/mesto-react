@@ -26,10 +26,10 @@ function EditProfilePopup(props) {
     });
   }
 
-  // useEffect(() => {
-  //   setName(currentUser.name);
-  //   setDescription(currentUser.about);
-  // }, [currentUser /*props.isOpen*/]);
+  useEffect(() => {
+    setName('');
+    setDescription('');
+  }, [currentUser, props.isOpen]);
 
   return (
     <PopupWithForm
